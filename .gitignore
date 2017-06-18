@@ -1,0 +1,12 @@
+
+WebContent/css/.svn/
+
+WebContent/fonts/.svn/
+
+WebContent/images/.svn/
+
+*.svn-base
+
+WebContent/META-INF/.svn/
+
+WebContent/js/.svn/
