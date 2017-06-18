@@ -1,0 +1,313 @@
+package com.ocsr.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.ocsr.bean.RentalBean;
+import com.ocsr.utils.Connector;
+
+public class RentalDao {
+	Connection con=null;
+	PreparedStatement ps1=null;
+	PreparedStatement ps2=null;
+	PreparedStatement ps3=null;
+	PreparedStatement ps4=null;
+	PreparedStatement ps5=null;
+	PreparedStatement ps6=null;
+	PreparedStatement ps7=null;
+	ResultSet rs1=null;
+	ResultSet rs2=null;
+	ResultSet rs3=null;
+	ResultSet rs4=null;
+	ResultSet rs5=null;
+	public String rentCabDao(RentalBean rentalBean) {
+		int rentalNumber = 0;
+		int rowId = 0;
+		int securityDeposit = 0;
+		String carId = null;	
+		String reservationId=null;
+		try
+		{
+
+			con=Connector.getConnection();
+			ps1=con.prepareStatement("select car_id as carId from ocsr_Fleet where carmodel=? and fleettype=? and carMake=? and car_status='1'");
+			System.out.println(rentalBean.getCarMake()+rentalBean.getCarModel()+rentalBean.getCarType());
+			System.out.println(rentalBean.getFeatures());
+			ps1.setString(1,rentalBean.getCarModel());
+			ps1.setString(2,rentalBean.getCarType());
+			ps1.setString(3, rentalBean.getCarMake());
+			
+			rs1=ps1.executeQuery();
+			con.commit();
+			System.out.println("in rental dao");
+
+			while(rs1.next())
+			{
+
+				carId=rs1.getString("carId");
+				rentalBean.setCarId(carId);
+				System.out.println(carId);
+				break;
+			}
+
+			if(carId!=null)
+			{
+				System.out.println("in carid");
+				ps5=con.prepareStatement("update ocsr_fleet set car_Status='0' where car_id=?");
+				ps5.setString(1, rentalBean.getCarId());
+				ps5.executeUpdate();
+				con.commit();	
+				
+				System.out.println("in update");
+				ps2=con.prepareStatement("select * from temp_ocsr_Rental");
+				rs2=ps2.executeQuery();
+				String tempcount="R00";
+				while(rs2.next())
+				{
+					tempcount=rs2.getString(1);
+				}
+				
+				tempcount=tempcount.substring(1,tempcount.length());
+				rowId=Integer.parseInt(tempcount)+1;			
+				reservationId="R"+(rowId);
+				
+				ps3=con.prepareStatement("select Security_Deposit as securityDeposit from OCSR_Fleet where Car_id=?");
+				ps3.setString(1, carId);
+				rs3=ps3.executeQuery();
+				while(rs3.next())
+				{
+					securityDeposit=rs3.getInt("securityDeposit");
+					rentalBean.setSecurityDeposit(securityDeposit);
+					
+				}
+				
+				ps4=con.prepareStatement("insert into temp_ocsr_Rental values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				ps4.setString(1,reservationId);
+				ps4.setString(2,rentalBean.getPickUpDate());
+				ps4.setString(3,rentalBean.getPickUpTime());
+				ps4.setString(4,rentalBean.getPickUpLocation());
+				ps4.setString(5,rentalBean.getDropDate());
+				ps4.setString(6,rentalBean.getDropTime());
+				ps4.setString(7,rentalBean.getDropLocation());
+				ps4.setInt(8,securityDeposit);
+				ps4.setInt(9,rentalBean.getNoOfDays());
+				ps4.setInt(10,0);
+				ps4.setInt(11,1000);
+				ps4.setString(12,carId);
+				double subTotal=0.0;
+				PreparedStatement ps10 = con.prepareStatement("select * from ocsr_fleet where car_id=?");
+				ps10.setString(1, rentalBean.getCarId());
+				ResultSet rs7=ps10.executeQuery();
+				if(rs7.next())
+				{
+					subTotal=rs7.getDouble("RENT_PER_DAY");
+				}
+			
+				int noOfDays=rentalBean.getNoOfDays();
+				System.out.println(rentalBean.getNoOfDays());
+				double conveyance=rentalBean.getConveyance();
+				double subAmount=(subTotal*noOfDays)+(subTotal*noOfDays*0.05);  
+				System.out.println(subAmount);
+				double amount=subAmount+(subAmount*0.08)+conveyance;
+				System.out.println("sdasd"+amount);
+				rentalBean.setTotalPrice(amount);
+				System.out.println("in dao"+rentalBean.getSourceCity());
+				ps4.setString(13,rentalBean.getDestinationCity());
+				ps4.setString(14,rentalBean.getSourceCity());
+				rentalNumber=ps4.executeUpdate();
+				con.commit();
+				
+
+			}
+			else{
+				reservationId=null;
+			}
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally
+		{
+			try {
+				if(con!=null)
+				{
+					con.close();
+				}
+				if(ps1!=null)
+				{
+					ps1.close();
+				}
+				if(ps2!=null)
+				{
+					ps2.close();
+				}
+				if(ps2!=null)
+				{
+					ps2.close();
+				}
+				if(ps3!=null)
+				{
+					ps3.close();
+				}
+				if(ps4!=null)
+				{
+					ps4.close();
+				}
+				if(ps5!=null)
+				{
+					ps5.close();
+				}
+				if(rs1!=null)
+				{
+					rs1.close();
+				}
+				if(rs2!=null)
+				{
+					rs2.close();
+				}
+				if(rs3!=null)
+				{
+					rs3.close();
+				} 
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return reservationId;
+	}
+	
+	public String rentCabStoreDao(RentalBean rentalBean) {
+		int rentalNumber;
+		int rentalId = 0;
+		int rowId=0;
+		
+			
+		String reservationId1=null;
+		try
+		{
+
+			con=Connector.getConnection();
+				ps7=con.prepareStatement("select * from ocsr_Rental");
+				rs5=ps7.executeQuery();
+				String tempcount="R00";
+				while(rs5.next())
+				{
+					tempcount=rs5.getString(1);
+				}
+				tempcount=tempcount.substring(1,tempcount.length());
+				rowId=Integer.parseInt(tempcount);			
+				reservationId1="R"+(rowId+1);
+				rentalBean.setReservationId(reservationId1);
+				ps7=con.prepareStatement("insert into ocsr_Rental values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				ps7.setString(1,reservationId1);
+				ps7.setString(2,rentalBean.getUserId());
+				ps7.setString(3,rentalBean.getPickUpDate());
+				ps7.setString(4,rentalBean.getPickUpTime());
+				ps7.setString(5,rentalBean.getPickUpLocation());
+				ps7.setString(6,rentalBean.getDropDate());
+				ps7.setString(7,rentalBean.getDropTime());
+				ps7.setString(8,rentalBean.getDropLocation());
+				ps7.setDouble(9,rentalBean.getSecurityDeposit());
+				ps7.setInt(10,rentalBean.getNoOfDays());
+				ps7.setDouble(11,rentalBean.getConveyance());
+				ps7.setDouble(12,rentalBean.getTotalPrice());
+				ps7.setString(13,rentalBean.getCarId());
+				ps7.setString(14,rentalBean.getDestinationCity());
+				ps7.setString(15,rentalBean.getSourceCity());
+				rentalNumber=ps7.executeUpdate();
+				con.commit();
+			
+
+			
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally
+		{
+			try {
+				if(con!=null)
+				{
+					con.close();
+				}
+				if(ps6!=null)
+				{
+					ps6.close();
+				}
+				if(ps7!=null)
+				{
+					ps7.close();
+				}
+				
+				if(rs5!=null)
+				{
+					rs5.close();
+				}
+							}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return reservationId1;
+	}
+	public String makePaymentDao(RentalBean rentalBean, String cardType) {
+		int paymentRowId = 0;
+		String paymentId=null;
+		double subTotal=0.0;
+		try{
+			con=Connector.getConnection();
+		PreparedStatement ps8 = con.prepareStatement("select count(*) from ocsr_payment");
+		ResultSet rs6 = ps8.executeQuery();
+		
+		if(rs6.next())
+		{
+			paymentRowId=rs6.getInt(1);
+		}
+		paymentId="p"+(paymentRowId+1);
+		PreparedStatement ps10 = con.prepareStatement("select * from ocsr_fleet where car_id=?");
+		ps10.setString(1, rentalBean.getCarId());
+		ResultSet rs7=ps10.executeQuery();
+		if(rs7.next())
+		{
+			subTotal=rs7.getDouble("RENT_PER_DAY");
+		}
+		System.out.println(subTotal);
+		int noOfDays=rentalBean.getNoOfDays();
+		System.out.println(rentalBean.getNoOfDays());
+		double conveyance=rentalBean.getConveyance();
+		double subAmount=(subTotal*noOfDays)+(subTotal*noOfDays*0.05);  
+		System.out.println(subAmount);
+		double amount=subAmount+(subAmount*0.08)+conveyance;
+		rentalBean.setTotalPrice(amount);
+		PreparedStatement ps9 = con.prepareStatement("insert into ocsr_payment values(?,?,?,?,?)");
+		ps9.setString(1, paymentId);
+		ps9.setString(2,cardType);
+		ps9.setDouble(3,amount);
+		ps9.setDouble(4, rentalBean.getSecurityDeposit());
+		ps9.setString(5,rentalBean.getReservationId());
+		ps9.executeQuery();
+		con.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return paymentId;
+	}
+
+}
+

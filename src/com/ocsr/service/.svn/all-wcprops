@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/CHN07/!svn/ver/4591/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service
+END
+CancelBookingService.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/CHN07/!svn/ver/4245/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/CancelBookingService.java
+END
+FeedbackService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/CHN07/!svn/ver/4245/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/FeedbackService.java
+END
+CarService.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/CHN07/!svn/ver/4245/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/CarService.java
+END
+RentalService.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/CHN07/!svn/ver/4387/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/RentalService.java
+END
+CancelReservationService.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/CHN07/!svn/ver/4245/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/CancelReservationService.java
+END
+BookingService.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/CHN07/!svn/ver/4591/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/BookingService.java
+END
+LoginService.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/CHN07/!svn/ver/4245/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/LoginService.java
+END
+FetchService.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/CHN07/!svn/ver/4245/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/FetchService.java
+END
+CarSearchService.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/CHN07/!svn/ver/4387/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/CarSearchService.java
+END
+CustomerRegistrationService.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/CHN07/!svn/ver/4245/M35/ProjectDelivery/Project2/trunk/GroupE/branches/Ocsr_Integrated/src/com/ocsr/service/CustomerRegistrationService.java
+END
