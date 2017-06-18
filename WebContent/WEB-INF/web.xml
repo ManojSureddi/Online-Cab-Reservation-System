@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>ocsr-final-v1</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>com.ocsr.controller.LoginController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/LoginController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BookingController</servlet-name>
+		<servlet-class>com.ocsr.controller.BookingController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BookingController</servlet-name>
+		<url-pattern>/BookingController</url-pattern>
+	</servlet-mapping>
+
+
+
+
+	<servlet>
+		<servlet-name>CarRegistrationController</servlet-name>
+		<servlet-class>com.ocsr.controller.CarRegistrtionController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CarRegistrationController</servlet-name>
+		<url-pattern>/CarRegistrationController</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>CustomerRegistrationController</servlet-name>
+		<servlet-class>com.ocsr.controller.CustomerRegistrationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CustomerRegistrationController</servlet-name>
+		<url-pattern>/CustomerRegistrationController</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>FeedbackController</servlet-name>
+		<servlet-class>com.ocsr.controller.FeedbackController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FeedbackController</servlet-name>
+		<url-pattern>/FeedbackController</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>RentalController</servlet-name>
+		<servlet-class>com.ocsr.controller.RentalController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RentalController</servlet-name>
+		<url-pattern>/RentalController</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>	
+		<servlet-name>Fetchcontroller</servlet-name>
+		<servlet-class>com.ocsr.controller.FetchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Fetchcontroller</servlet-name>
+		<url-pattern>/FetchDetails</url-pattern>
+	</servlet-mapping>
+
+
+ <servlet>
+    <description></description>
+    <display-name>CarSearchControl</display-name>
+    <servlet-name>CarSearchControl</servlet-name>
+    <servlet-class>com.ocsr.controller.CarSearchControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CarSearchControl</servlet-name>
+    <url-pattern>/CarSearchControl</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+    <description></description>
+    <display-name>UpdateCarControl</display-name>
+    <servlet-name>UpdateCarControl</servlet-name>
+    <servlet-class>com.ocsr.controller.UpdateCarControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateCarControl</servlet-name>
+    <url-pattern>/UpdateCarControl</url-pattern>
+  </servlet-mapping>
+
+
+
+  <servlet>
+    <description></description>
+    <display-name>CancelReservationController</display-name>
+    <servlet-name>CancelReservationController</servlet-name>
+    <servlet-class>com.ocsr.controller.cancelReservationController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CancelReservationController</servlet-name>
+    <url-pattern>/cancelReservationController</url-pattern>
+  </servlet-mapping>
+
+
+<error-page>
+<error-code>404</error-code>
+<location>/ErrorPage.jsp</location>
+</error-page>
+
+<error-page>
+<error-code>500</error-code>
+<location>/ErrorPage.jsp</location>
+</error-page>
+</web-app>
